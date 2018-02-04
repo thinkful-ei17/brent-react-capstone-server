@@ -1,10 +1,10 @@
-'use strict';
+
 
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 
-const {TEST_DATABASE_URL} = require('../config');
-const {dbConnect, dbDisconnect} = require('../db-mongoose');
+const { TEST_DATABASE_URL } = require('../config');
+const { dbConnect, dbDisconnect } = require('../db-mongoose');
 // const {dbConnect, dbDisconnect} = require('../db-knex');
 
 // Set NODE_ENV to `test` to disable http layer logs
@@ -17,16 +17,12 @@ process.stdout.write('\x1Bc\n');
 const expect = chai.expect;
 chai.use(chaiHttp);
 
-before(function() {
-    return dbConnect(TEST_DATABASE_URL);
-});
+before(() => dbConnect(TEST_DATABASE_URL));
 
-after(function() {
-    return dbDisconnect();
-});
+after(() => dbDisconnect());
 
-describe('Mocha and Chai', function() {
-    it('should be properly setup', function() {
-        expect(true).to.be.true;
-    });
+describe('Mocha and Chai', () => {
+  it('should be properly setup', () => {
+    expect(true).to.be.true;
+  });
 });
