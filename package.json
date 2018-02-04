@@ -1,17 +1,11 @@
 {
-  "name": "thinkful-backend-template",
+  "name": "server",
   "version": "1.0.0",
-  "description": "Template for an Express backend",
+  "description": "A template for developing and deploying Node.js apps.",
   "main": "index.js",
-  "scripts": {
-    "start": "nodemon index.js",
-    "test": "mocha --colors --watch  test/setup.test.js */*.test.js",
-    "cover": "nodemon --exec nyc --reporter=lcov --reporter=text-summary mocha test/setup.test.js */*.test.js",
-    "heroku": "node index.js",
-    "travis": "mocha test/setup.test.js */*.test.js"
+  "directories": {
+    "test": "test"
   },
-  "author": "Joe Turner <jturner@thinkful.com>",
-  "license": "MIT",
   "dependencies": {
     "cors": "^2.8.4",
     "express": "^4.15.4",
@@ -26,5 +20,22 @@
     "mocha": "^3.5.3",
     "nodemon": "^1.12.1",
     "nyc": "^11.2.1"
-  }
+  },
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "mocha",
+    "cover": "nodemon --exec nyc --report=lcov --reporter=text-summary mocha test/setup.test.js */*.test.js",
+    "heroku": "node index.js",
+    "travis": "mocha test/setup.test.js /*/.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thinkful-ei17/brent-react-capstone-server.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thinkful-ei17/brent-react-capstone-server/issues"
+  },
+  "homepage": "https://github.com/thinkful-ei17/brent-react-capstone-server#readme"
 }
