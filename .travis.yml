@@ -1,0 +1,11 @@
+language: node_js
+node_js: node
+services:
+- mongodb
+deploy:
+  provider: heroku
+  api_key:
+    secure: Lh0fln5gIN2+vD+vJ8lZjt+LkLsLhrbf4tNySe0M2u805t+mV8apWMz9jOA9cPjgaP8q6qODhO7R9zHoWCuY4sXw1gQ6C7Gpp2vNNZrOPrg0Vu872WGFqlcPdlw1eLrBldbKRj1R06wnaD572LbI/BmpSnuudsmsNo8INj8U6iNiOjl3kdXpp4X/FaswzScJlTjw5PI9UGHOtLpgLjTjnJsnBj1l7axolcwygAn30rYIWRqINwTyYozZmnBUJkYhmdz7uzc/UThdXO12RJAnsmY57bk38WlcsqXH3ZqaT1cn1n5+2m/8EBw4GT1gkuGhyTCJErO7z9vyT3nXqVT2UV1rjaPbVBeR3W4ANzjfD/HxIVgiD2vYxnxjDokELcOk4jd9pLihSlcQZSX1+px9gjNxyOz+yoOpW1VzsHqe9ytx1Yaz6Pb5rGWdAYO0VxbtMTaJWIxDqqPZ2wDwlrjLhAxQvdiN7ISlTqRaHszwzzHSa4j+zGV+xw0X6G/Zue81nxUE+hej7bFbhtjNhWNqCGeIEf5pRD6jB5ZD7B9fskEf/uzcYur7K4Eogx/PiGu5tzYdB1uzitW2Ns7EbNGZJoDLgYbtcfSJcq8l6sTBjTjb5Ek+yhMerMczpZY7zoRP9S8LCPRivicpqphnOxQpvIIfA4hBUevrjvfz/qCkyEs=
+  app: whispering-coast-36098
+  on:
+    repo: thinkful-ei17/brent-react-capstone-server
