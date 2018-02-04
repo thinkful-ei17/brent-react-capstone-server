@@ -22,7 +22,7 @@ before(() => dbConnect(TEST_DATABASE_URL));
 after(() => dbDisconnect());
 
 describe('Mocha and Chai', () => {
-  it('should be properly setup', () => {
+  it('should be properly setup!', () => {
     expect(true).to.be.true;
   });
 });
