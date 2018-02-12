@@ -14,7 +14,7 @@ process.env.NODE_ENV = 'test';
 // Clear the console before each run
 process.stdout.write('\x1Bc\n');
 
-const expect = chai.expect;
+const { expect } = chai;
 chai.use(chaiHttp);
 
 before(() => dbConnect(TEST_DATABASE_URL));
