@@ -1,17 +1,41 @@
 const bodyParser = require('body-parser');
 const express = require('express');
 const morgan = require('morgan');
+const cors = require('cors');
 const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
 
-const { DATABASE_URL, PORT } = require('./config');
+const { CLIENT_ORIGIN, PORT } = require('./config');
+const { dbConnect } = require('./db-mongoose');
 const { Note } = require('./models');
 
 const app = express();
 
-app.use(morgan('common'));
+app.use(morgan(process.env.NODE_ENV === 'production' ? 'common' : 'dev', {
+  skip: (req, res) => process.env.NODE_ENV === 'test',
+}));
+
 app.use(bodyParser.json());
+app.use(cors({
+  origin: CLIENT_ORIGIN,
+}));
+
+function runServer(port = PORT) {
+  const server = app
+    .listen(port, () => {
+      console.info(`App listening on port ${server.address().port}`);
+    })
+    .on('error', (err) => {
+      console.error('Express failed to start');
+      console.error(err);
+    });
+}
+
+if (require.main === module) {
+  dbConnect();
+  runServer();
+}
 
 app.get('/notes', (req, res) => {
   Note
@@ -63,14 +87,14 @@ app.delete('/notes/:id', (req, res) => {
 });
 
 
-app.put('/notes/:id', (req, res) => {
- 
+// app.put('/notes/:id', (req, res) => {
 
-  Note
-    .findByIdAndUpdate(req.params.id, { $set: updated }, { new: true })
-    .then(updatedPost => res.status(204).end())
-    .catch(err => res.status(500).json({ message: 'Something went wrong' }));
-});
+
+//   Note
+//     .findByIdAndUpdate(req.params.id, { $set: updated }, { new: true })
+//     .then(updatedPost => res.status(204).end())
+//     .catch(err => res.status(500).json({ message: 'Something went wrong' }));
+// });
 
 
 app.delete('/:id', (req, res) => {
@@ -83,53 +107,4 @@ app.delete('/:id', (req, res) => {
 });
 
 
-app.use('*', (req, res) => {
-  res.status(404).json({ message: 'Not Found' });
-});
-
-// closeServer needs access to a server object, but that only
-// gets created when `runServer` runs, so we declare `server` here
-// and then assign a value to it in run
-let server;
-
-// this function connects to our database, then starts the server
-function runServer(databaseUrl = DATABASE_URL, port = PORT) {
-  return new Promise((resolve, reject) => {
-    mongoose.connect(databaseUrl, { useMongoClient: true }, (err) => {
-      if (err) {
-        return reject(err);
-      }
-      server = app.listen(port, () => {
-        console.log(`Your app is listening on port ${port}`);
-        resolve();
-      })
-        .on('error', (err) => {
-          mongoose.disconnect();
-          reject(err);
-        });
-    });
-  });
-}
-
-// this function closes the server, and returns a promise. we'll
-// use it in our integration tests later.
-function closeServer() {
-  return mongoose.disconnect().then(() => new Promise((resolve, reject) => {
-    console.log('Closing server');
-    server.close((err) => {
-      console.log(err);
-      if (err) {
-        return reject(err);
-      }
-      resolve();
-    });
-  }));
-}
-
-// if server.js is called directly (aka, with `node server.js`), this block
-// runs. but we also export the runServer command so other code (for instance, test code) can start the server as needed.
-if (require.main === module) {
-  runServer().catch(err => console.error(err));
-}
-
-module.exports = { runServer, app, closeServer };
+module.exports = { app };
