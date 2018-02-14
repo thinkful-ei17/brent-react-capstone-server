@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const notesSchema = mongoose.Schema({
   title: String,
-  notes: [String],
+  content: String,
   tags: [String],
 });
 
