@@ -40,8 +40,8 @@ if (require.main === module) {
 app.get('/notes', (req, res) => {
   Note
     .find()
-    .then((notes) => {
-      res.json(notes);
+    .then((posts) => {
+      res.json(posts.map(note => note.serialize()));
     })
     .catch((err) => {
       console.error(err);
@@ -52,7 +52,7 @@ app.get('/notes', (req, res) => {
 app.get('/notes/:id', (req, res) => {
   Note
     .findById(req.params.id)
-    .then(note => res.json(note))
+    .then(post => res.json(post.serialize()))
     .catch((err) => {
       console.error(err);
       res.status(500).json({ error: 'something went horribly awry' });
