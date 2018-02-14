@@ -10,8 +10,10 @@ const notesSchema = mongoose.Schema({
 
 notesSchema.methods.serialize = function () {
   return {
-    title: this._id,
+    id: this._id,
+    title: this.title,
     content: this.content,
+    tags: this.tags,
     lastEdited: this.lastEdited,
   };
 };
