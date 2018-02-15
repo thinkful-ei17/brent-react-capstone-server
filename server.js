@@ -95,7 +95,6 @@ app.put('/notes/:id', (req, res) => {
   Note
     .findByIdAndUpdate(req.params.id, { $set: updated }, { new: true })
     .then(updatedNote => {
-      console.log(updatedNote);
       res.json(updatedNote.serialize());
     })
     .catch(err => res.status(500).json({ message: err }));
