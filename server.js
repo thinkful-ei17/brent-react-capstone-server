@@ -88,23 +88,18 @@ app.delete('/notes/:id', (req, res) => {
 
 
 app.put('/notes/:id', (req, res) => {
+  const updated = {
+    title: req.body.title,
+    content: req.body.content,
+  };
   Note
-    .findByIdAndUpdate(req.params.id, {
-      $set: {
-        title: req.body.title, 
-        content: req.body.content 
-      } 
-    }, 
-    { 
-      new: true 
-    })
-    .then(note => {
-      console.log('this is note from inside put', note);
-      res.send(note);
+    .findByIdAndUpdate(req.params.id, { $set: updated }, { new: true })
+    .then(updatedNote => {
+      console.log(updatedNote);
+      res.json(updatedNote.serialize());
     })
     .catch(err => res.status(500).json({ message: err }));
 });
-
 
 
 module.exports = { app };
