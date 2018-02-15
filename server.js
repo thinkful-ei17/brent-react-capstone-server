@@ -52,7 +52,7 @@ app.get('/notes', (req, res) => {
 app.get('/notes/:id', (req, res) => {
   Note
     .findById(req.params.id)
-    .then(post => res.json(post.serialize()))
+    .then(note => res.json(note.serialize()))
     .catch((err) => {
       console.error(err);
       res.status(500).json({ error: 'something went horribly awry' });
@@ -66,7 +66,7 @@ app.post('/notes', (req, res) => {
       content: req.body.content,
       tags: req.body.tags,
     })
-    .then(note => res.status(200).json(note))
+    .then(post => res.json(post.serialize()))
     .catch((err) => {
       console.error(err);
       res.status(500).json({ error: 'Something went wrong' });
