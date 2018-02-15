@@ -87,24 +87,24 @@ app.delete('/notes/:id', (req, res) => {
 });
 
 
-// app.put('/notes/:id', (req, res) => {
-
-
-//   Note
-//     .findByIdAndUpdate(req.params.id, { $set: updated }, { new: true })
-//     .then(updatedPost => res.status(204).end())
-//     .catch(err => res.status(500).json({ message: 'Something went wrong' }));
-// });
-
-
-app.delete('/:id', (req, res) => {
+app.put('/notes/:id', (req, res) => {
   Note
-    .findByIdAndRemove(req.params.id)
-    .then(() => {
-      console.log(`Deleted blog post with id \`${req.params.ID}\``);
-      res.status(204).end();
-    });
+    .findByIdAndUpdate(req.params.id, {
+      $set: {
+        title: req.body.title, 
+        content: req.body.content 
+      } 
+    }, 
+    { 
+      new: true 
+    })
+    .then(note => {
+      console.log('this is note from inside put', note);
+      res.send(note);
+    })
+    .catch(err => res.status(500).json({ message: err }));
 });
+
 
 
 module.exports = { app };
