@@ -49,15 +49,15 @@ app.get('/notes', (req, res) => {
     });
 });
 
-app.get('/notes/:id', (req, res) => {
-  Note
-    .findById(req.params.id)
-    .then(note => res.json(note.serialize()))
-    .catch((err) => {
-      console.error(err);
-      res.status(500).json({ error: 'something went horribly awry' });
-    });
-});
+// app.get('/notes/:id', (req, res) => {
+//   Note
+//     .findById(req.params.id)
+//     .then(note => res.json(note.serialize()))
+//     .catch((err) => {
+//       console.error(err);
+//       res.status(500).json({ error: 'something went horribly awry' });
+//     });
+// });
 
 app.post('/notes', (req, res) => {
   Note
