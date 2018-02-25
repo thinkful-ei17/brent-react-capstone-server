@@ -26,7 +26,7 @@
     "start": "nodemon server.js",
     "test": "mocha",
     "cover": "nodemon --exec nyc --report=lcov --reporter=text-summary mocha test/setup.test.js */*.test.js",
-    "heroku": "node index.js",
+    "heroku": "node server.js",
     "travis": "mocha test/setup.test.js /*/.test.js"
   },
   "repository": {
