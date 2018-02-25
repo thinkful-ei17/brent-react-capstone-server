@@ -2,7 +2,7 @@
   "name": "server",
   "version": "1.0.0",
   "description": "A template for developing and deploying Node.js apps.",
-  "main": "index.js",
+  "main": "server.js",
   "directories": {
     "test": "test"
   },
@@ -23,7 +23,7 @@
     "nyc": "^11.2.1"
   },
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "nodemon server.js",
     "test": "mocha",
     "cover": "nodemon --exec nyc --report=lcov --reporter=text-summary mocha test/setup.test.js */*.test.js",
     "heroku": "node index.js",
